@@ -1,8 +1,18 @@
 # Probability Calculator for Austin
 
+## The competition
+
+On the 10th of August 2024, Austin from ShoddyCast showed his Python code that took eight days to run a basic algorithm:
+
+    Roll 231 four-sided dice and record the number of times it landed on 1.
+    Repeat this 1 billion times, and output the largest total.
+
 ## My time
 
 Running the Linux version single threaded on an Intel Core i9 9900K, I get between 1 minute 20 and 1 minute 16.
+
+I feel like multi-threading it should be able to get it down to 20 seconds.
+And it wouldn't be too hard to implement.
 
 ## Implementation details
 
@@ -28,7 +38,7 @@ and there is no performance impact compared to pre-calculating it myself.
 
 I have first written a version in Python, extrapolating out from the 1 million result, it should take 4 hours.
 
-## Compiling and Running
+## Compiling, running, and timing
 
 ### Windows users
 
