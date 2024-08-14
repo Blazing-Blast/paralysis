@@ -7,6 +7,8 @@ On the 10th of August 2024, Austin from ShoddyCast showed his Python code that t
     Roll 231 four-sided dice and record the number of times it landed on 1.
     Repeat this 1 billion times, and output the largest total.
 
+He challenged his viewers to make it faster. This is my submission to that competition.
+
 ## My time
 
 Running the Linux version multi-threaded on an Intel Core i9 9900K can be done in 9.981 seconds.
@@ -48,6 +50,24 @@ I have first written a version in Python, extrapolating out from the 1 million r
 
 First, follow [this guide](https://www.msys2.org/).
 
+Keep the MSYS2 application open. You will need it later.
+If you accidentally closed it, make sure to open the UCRT64 variant.
+(Or UCRT32 if you still have a 32-bit computer.)
+
+Then, if you have already cloned this repo, use option 2.
+If you have had the foresight to read this far ahead, use option 1.
+
+Once you have the source code inside MSYS2,
+open MSYS2 and enter the directory with
+
+    cd paralysis
+
+Finally, compile, run, and time the code by running
+
+    ./run-windows.sh
+
+#### Option 1
+
 In the MSYS2 terminal, run
 
     pacman -S git
@@ -56,16 +76,13 @@ and then clone the repo from the terminal using
 
     git clone https://github.com/Blazing-Blast/paralysis
 
-Enter the directory with
+#### Option 2
 
-    cd paralysis
-
-Finally, compile, run, and time the code by running
-
-    ./run-windows.sh
+Copy/move the folder with the code into `C:\msys64\home\USERNAME\`
+or another directory if you've installed MSYS2 somewhere else.
 
 ### Linux users
 
-Just run
+clone the repo, enter the directory, and run
 
     ./run-linux.sh
