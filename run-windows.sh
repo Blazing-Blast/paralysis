@@ -1,3 +1,2 @@
 #!/bin/bash
-g++ main.cc -Ofast -flto \
-&& time ./a.exe
+./compile.sh && time ./a.exe

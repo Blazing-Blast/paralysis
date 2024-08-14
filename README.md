@@ -11,7 +11,7 @@ He challenged his viewers to make it faster. This is my submission to that compe
 
 ## My time
 
-Running the Linux version multi-threaded on an Intel Core i9 9900K can be done in 9.981 seconds.
+Running the Linux version multi-threaded on an Intel Core i9 9900K can be done in 8.869 seconds.
 
 The single threaded version achieves 1 minute 16 seconds.
 
@@ -30,10 +30,10 @@ The loops from line 25 to 29 and 32 to 36 take a generated random number and spl
 
 Because 1 billion is not divisible by 16, the second loop is there to roll the 7 remaining dice.
 
-The `dims` variable controls how big of a random number to generate. Bigger numbers take longer to generate, but can roll more dice.
-I have found that 32-bit ($2^{4+1}$) has the best tradeoff between these two, therefore `dims = 4`.
-This is done with `constexpr`essions, that makes it so the compiler calculates this ahead of time,
-and there is no performance impact compared to pre-calculating it myself.
+Bigger numbers take longer to generate, but can be used to roll more dice.
+I have found that 32 bits have the best tradeoff between these two.
+This is what the many `ROLL;`s are for.
+These are not in a loop (anymore) because loops are more expensive than just writing it 16 times.
 
 Because all of these calculations (except tracking the maximum) are independent, you can do multiple at the same time.
 This means you can multi-thread it. The code takes the amount of threads you have, and equally divides the work between them.

@@ -6,7 +6,6 @@
 
 constexpr uint_fast8_t totalTurns = 231;
 constexpr uint_fast8_t neededTurns = 177;
-constexpr int dims = 4;
 constexpr int maxRuns = 1000000000;
 const uint_fast8_t threadCount = std::thread::hardware_concurrency();
 
@@ -41,23 +40,44 @@ void roll(int maxRuns, uint_fast8_t *ret)
     uint_fast8_t highest = 0;
     uint_fast8_t current = 0;
     uint_fast32_t x;
+
+#define ROLL               \
+    current += (!(x & 3)); \
+    x >>= 2
+
     for (size_t _i = 0; _i < maxRuns; _i++)
     {
-        for (uint_fast8_t _j = 0; _j < (totalTurns >> dims); _j++)
+        for (uint_fast8_t _j = 0; _j < 14; _j++)
         {
             x = distribution(gen);
-            for (uint_fast8_t _k = 0; _k < (1 << dims); _k++)
-            {
-                current += ((x & 3) == 0);
-                x >>= 2;
-            }
+
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
+            ROLL;
         }
         x = distribution(gen);
-        for (uint_fast8_t _k = 0; _k < (totalTurns & ((1 << dims) - 1)); _k++)
-        {
-            current += ((x & 3) == 0);
-            x >>= 2;
-        }
+
+        ROLL;
+        ROLL;
+        ROLL;
+        ROLL;
+        ROLL;
+        ROLL;
+        ROLL;
+
         highest = std::max(highest, current);
         current = 0;
     }
