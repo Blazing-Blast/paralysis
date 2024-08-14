@@ -1,3 +1,3 @@
 #!/bin/bash
-g++ main.cc -Ofast -flto
-time ./a.out
+g++ main.cc -Ofast -flto \
+&& time ./a.out
