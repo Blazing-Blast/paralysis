@@ -9,10 +9,9 @@ On the 10th of August 2024, Austin from ShoddyCast showed his Python code that t
 
 ## My time
 
-Running the Linux version single threaded on an Intel Core i9 9900K, I get between 1 minute 20 and 1 minute 16.
+Running the Linux version multi-threaded on an Intel Core i9 9900K can be done in 9.981 seconds.
 
-I feel like multi-threading it should be able to get it down to 20 seconds.
-And it wouldn't be too hard to implement.
+The single threaded version achieves 1 minute 16.
 
 ## Implementation details
 
@@ -34,9 +33,14 @@ I have found that 32-bit ($2^{4+1}$) has the best tradeoff between these two, th
 This is done with `constexpr`essions, that makes it so the compiler calculates this ahead of time,
 and there is no performance impact compared to pre-calculating it myself.
 
+Because all of these calculations (except tracking the maximum) are independent, you can do multiple at the same time.
+This means you can multi-thread it. The code takes the amount of threads you have, and equally divides the work between them.
+The leftover work is done by the main thread while it waits for the other 16-or-so threads to finish.
+Once all are done, the biggest value between them gets outputted to the console.
+
 ## The Python version
 
-I have first written a version in Python, extrapolating out from the 1 million result, it should take 4 hours.
+I have first written a version in Python, extrapolating out from the 1 million result, it would take around 4 hours.
 
 ## Compiling, running, and timing
 
