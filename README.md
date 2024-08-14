@@ -11,7 +11,7 @@ On the 10th of August 2024, Austin from ShoddyCast showed his Python code that t
 
 Running the Linux version multi-threaded on an Intel Core i9 9900K can be done in 9.981 seconds.
 
-The single threaded version achieves 1 minute 16.
+The single threaded version achieves 1 minute 16 seconds.
 
 ## Implementation details
 
