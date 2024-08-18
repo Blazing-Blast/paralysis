@@ -3,6 +3,8 @@
 #include <cmath>
 #include <random>
 #include <thread>
+#include <bit>
+#include "wy.hh"
 
 constexpr uint_fast8_t totalTurns = 231;
 constexpr uint_fast8_t neededTurns = 177;
@@ -35,48 +37,26 @@ int main()
 void roll(int maxRuns, uint_fast8_t *ret)
 {
     std::random_device rd;
-    std::mt19937_64 gen(rd());
-    std::uniform_int_distribution<uint_fast32_t> distribution(0, UINT_FAST32_MAX);
+
+    wy::rand wyRand(rd());
+
+    std::uniform_int_distribution<uint_fast64_t> distribution(0, UINT_FAST64_MAX);
     uint_fast8_t highest = 0;
     uint_fast8_t current = 0;
-    uint_fast32_t x;
-
-#define ROLL               \
-    current += (!(x & 3)); \
-    x >>= 2
+    uint_fast64_t x;
 
     for (size_t _i = 0; _i < maxRuns; _i++)
     {
-        for (uint_fast8_t _j = 0; _j < 14; _j++)
+        for (uint_fast8_t _j = 0; _j < totalTurns / 64; _j++)
         {
-            x = distribution(gen);
-
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
-            ROLL;
+            x = distribution(wyRand) & distribution(wyRand);
+            current += std::popcount(x);
         }
-        x = distribution(gen);
+        constexpr char fucker = totalTurns % 64;
 
-        ROLL;
-        ROLL;
-        ROLL;
-        ROLL;
-        ROLL;
-        ROLL;
-        ROLL;
+        x = distribution(wyRand) & distribution(wyRand);
+        x &= (1ULL << fucker) - 1;
+        current += std::popcount(x);
 
         highest = std::max(highest, current);
         current = 0;

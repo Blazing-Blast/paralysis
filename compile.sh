@@ -1,1 +1,1 @@
-g++ main.cc -Ofast -flto
+g++ main.cc -Ofast -flto -std=c++20
