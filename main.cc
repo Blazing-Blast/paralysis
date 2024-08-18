@@ -1,7 +1,5 @@
 #include <iostream>
 #include <cinttypes>
-#include <cmath>
-#include <random>
 #include <thread>
 #include <bit>
 #include "wy.hh"
@@ -36,9 +34,7 @@ int main()
 
 void roll(int maxRuns, uint_fast8_t *ret)
 {
-    std::random_device rd;
-
-    wy::rand wyRand(rd());
+    wy::rand wyRand;
 
     std::uniform_int_distribution<uint_fast64_t> distribution(0, UINT_FAST64_MAX);
     uint_fast8_t highest = 0;
@@ -49,13 +45,12 @@ void roll(int maxRuns, uint_fast8_t *ret)
     {
         for (uint_fast8_t _j = 0; _j < totalTurns / 64; _j++)
         {
-            x = distribution(wyRand) & distribution(wyRand);
+            x = wyRand() & wyRand();
             current += std::popcount(x);
         }
-        constexpr char fucker = totalTurns % 64;
 
-        x = distribution(wyRand) & distribution(wyRand);
-        x &= (1ULL << fucker) - 1;
+        x = wyRand() & wyRand();
+        x &= (1ULL << (totalTurns % 64)) - 1;
         current += std::popcount(x);
 
         highest = std::max(highest, current);
