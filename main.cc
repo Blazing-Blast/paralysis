@@ -36,26 +36,22 @@ int main()
 
 void roll(int maxRuns, uint_fast8_t *ret)
 {
-    std::random_device rd;
-
-    wy::rand wyRand(rd());
-
-    std::uniform_int_distribution<uint_fast64_t> distribution(0, UINT_FAST64_MAX);
+    wy::rand wyRand;
     uint_fast8_t highest = 0;
     uint_fast8_t current = 0;
     uint_fast64_t x;
 
     for (size_t _i = 0; _i < maxRuns; _i++)
     {
-        for (uint_fast8_t _j = 0; _j < totalTurns / 64; _j++)
-        {
-            x = distribution(wyRand) & distribution(wyRand);
-            current += std::popcount(x);
-        }
-        constexpr char fucker = totalTurns % 64;
+        x = wyRand() & wyRand();
+        current += std::popcount(x);
+        x = wyRand() & wyRand();
+        current += std::popcount(x);
+        x = wyRand() & wyRand();
+        current += std::popcount(x);
 
-        x = distribution(wyRand) & distribution(wyRand);
-        x &= (1ULL << fucker) - 1;
+        x = wyRand() & wyRand();
+        x &= (1ULL << (totalTurns % 64)) - 1;
         current += std::popcount(x);
 
         highest = std::max(highest, current);
