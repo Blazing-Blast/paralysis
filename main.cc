@@ -35,19 +35,18 @@ int main()
 void roll(int maxRuns, uint_fast8_t *ret)
 {
     wy::rand wyRand;
-
-    std::uniform_int_distribution<uint_fast64_t> distribution(0, UINT_FAST64_MAX);
     uint_fast8_t highest = 0;
     uint_fast8_t current = 0;
     uint_fast64_t x;
 
     for (size_t _i = 0; _i < maxRuns; _i++)
     {
-        for (uint_fast8_t _j = 0; _j < totalTurns / 64; _j++)
-        {
-            x = wyRand() & wyRand();
-            current += std::popcount(x);
-        }
+        x = wyRand() & wyRand();
+        current += std::popcount(x);
+        x = wyRand() & wyRand();
+        current += std::popcount(x);
+        x = wyRand() & wyRand();
+        current += std::popcount(x);
 
         x = wyRand() & wyRand();
         x &= (1ULL << (totalTurns % 64)) - 1;
