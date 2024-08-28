@@ -11,9 +11,9 @@ He challenged his viewers to make it faster. This is my submission to that compe
 
 ## My time
 
-Running the Linux version multi-threaded on an Intel Core i9 9900K can be done in 8.869 seconds.
+Running the Linux version multi-threaded on an Intel Core i9 9900K can be done in 0.298 seconds.
 
-The single threaded version achieves 1 minute 16 seconds.
+The single threaded version achieves this in 2.555 seconds.
 
 ## Implementation details
 
