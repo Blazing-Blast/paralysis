@@ -1,1 +1,1 @@
-g++ main.cc -Ofast -flto -std=c++20
+g++ main.cc -Ofast -flto -std=c++20 -mavx2 -march=native -g

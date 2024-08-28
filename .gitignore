@@ -3,3 +3,4 @@ a.exe
 out.exe
 callgrind.out*
 .vscode
+thingy.S

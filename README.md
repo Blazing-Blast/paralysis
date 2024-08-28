@@ -17,6 +17,8 @@ The single threaded version achieves 1 minute 16 seconds.
 
 ## Implementation details
 
+**Waring: Outdated**
+
 All variables are declared outside of the loops. This is to prevent the need for stack frames inside the loops.
 (Which would take extra CPU instructions to create and get rid of)
 
@@ -25,15 +27,7 @@ because it is faster than all other random number generators that I've found, wh
 
 Instead of rolling a die from 1 to 4, I roll it from 0 to 3, this makes the result fit into two bits.
 Because a 4-sided die can be represented in 2 bits. So you can get 16 dice-rolls out of a 32-bit integer.
-
-The loops from line 25 to 29 and 32 to 36 take a generated random number and split it up into pairs bits, this reduces the amount of random numbers needed.
-
-Because 1 billion is not divisible by 16, the second loop is there to roll the 7 remaining dice.
-
-Bigger numbers take longer to generate, but can be used to roll more dice.
-I have found that 32 bits have the best tradeoff between these two.
-This is what the many `ROLL;`s are for.
-These are not in a loop (anymore) because loops are more expensive than just writing it 16 times.
+Or, in this case, 256 (which gets reduced to 231) dice rolls per pair of 256-bit integers.
 
 Because all of these calculations (except tracking the maximum) are independent, you can do multiple at the same time.
 This means you can multi-thread it. The code takes the amount of threads you have, and equally divides the work between them.
