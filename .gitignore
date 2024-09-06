@@ -4,3 +4,4 @@ out.exe
 callgrind.out*
 .vscode
 thingy.S
+cuda

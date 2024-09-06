@@ -6,6 +6,7 @@
 #include <bit>
 #include <random>
 #include "xorshiro256.hh"
+#include "wy.hh"
 
 typedef SEFUtility::RNG::Xoshiro256Plus<SIMDInstructionSet::AVX2> AVXrand;
 
