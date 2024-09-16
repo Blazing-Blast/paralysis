@@ -45,6 +45,7 @@ int main()
 __global__ void roll_cuda(uint_fast8_t *results, uint64_t seed)
 {
     uint_fast8_t highest = 0;
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
 
     uint_fast8_t current;
     seed += threadIdx.x + blockIdx.x * threadCount;
@@ -59,7 +60,7 @@ __global__ void roll_cuda(uint_fast8_t *results, uint64_t seed)
         current += __popcll(wyrand(seed) & wyrand(seed) << (256 - (totalTurns % 256)));
         highest = max(highest, current);
     }
-    results[threadIdx.x] = highest;
+    results[idx] = highest;
 }
 
 __device__ static __always_inline uint64_t wyrand(uint64_t &seed)
